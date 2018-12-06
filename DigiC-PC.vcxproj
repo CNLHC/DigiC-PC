@@ -29,14 +29,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>F:\Users\Desktop\Project\DigiC-PC\lib\LibMPSSE-SPI\Release\include;F:\Users\Desktop\Project\DigiC-PC\lib\D2XX;F:\Users\Desktop\Project\DigiC-PC\inc;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\cn\Desktop\Project\DigiC-PC\lib\LibMPSSE-SPI\Release\include;C:\Users\cn\Desktop\Project\DigiC-PC\lib\D2XX;C:\Users\cn\Desktop\Project\DigiC-PC\inc;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalDependencies>libMPSSE.lib;ftd2xx.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>F:\Users\Desktop\Project\DigiC-PC\lib\LibMPSSE-SPI\Release\lib\windows\x64;F:\Users\Desktop\Project\DigiC-PC\lib\D2xx\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\cn\Desktop\Project\DigiC-PC\lib\LibMPSSE-SPI\Release\lib\windows\x64;C:\Users\cn\Desktop\Project\DigiC-PC\lib\D2xx\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
