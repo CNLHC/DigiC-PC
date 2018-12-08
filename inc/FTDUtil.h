@@ -10,6 +10,7 @@ public:
 	int lsDev();
 	int lsSPIChannel();
 	void SPIWriteByte(uint8 slaveAddress, uint8 address, uint32 data);
+	void SPIWriteByteArray(uint8 * Data,int);
 
 
 	ChannelConfig mSPIChannelConf;

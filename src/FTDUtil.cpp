@@ -12,10 +12,10 @@
 FTDUtil::FTDUtil()
 {
 	printf("FTDUtil:Constructor:\nhandle=0x%x\n", this->mHandle);
-	this->mSPIChannelConf.ClockRate = 30000000;
+	this->mSPIChannelConf.ClockRate = 15000000;
 	this->mSPIChannelConf.LatencyTimer =1;
 	this->mSPIChannelConf.configOptions =
-		SPI_CONFIG_OPTION_MODE0 | SPI_CONFIG_OPTION_CS_DBUS3;
+		SPI_CONFIG_OPTION_MODE2 | SPI_CONFIG_OPTION_CS_DBUS3;
 	this->mSPIChannelConf.Pin = 0x00000000;
 	FT_STATUS status = SPI_OpenChannel(0, &mHandle);
 	if (!status == FT_OK) {
@@ -87,9 +87,27 @@ void FTDUtil::SPIWriteByte(uint8 slaveAddress, uint8 address, uint32 data) {
 	buffer[3] =data&0x00FF;
 	status = SPI_Write(this->mHandle,buffer, sizeToTransfer, &sizeTransfered,
 		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES|
-		SPI_TRANSFER_OPTIONS_CHIPSELECT_ENABLE |
-		SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
+		SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE
+	);
 	APP_CHECK_STATUS(status);
 	APP_CHECK_STATUS(status);
 	printf("FTDUtil:SPIWriteByte:发送数据%x\n",data);
 }
+void FTDUtil::SPIWriteByteArray(uint8 * Data,int sizeToTransfer) {
+	uint32 sizeTransfered = 0;
+	FT_STATUS status;
+	status = SPI_Write(this->mHandle,Data,sizeToTransfer, &sizeTransfered,
+		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES|
+		SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE
+	);
+	APP_CHECK_STATUS(status);
+	APP_CHECK_STATUS(status);
+	printf("FTDUtil:SPIWriteByte:发送:");
+	for (int i=0;i<sizeToTransfer;i++)
+		printf("\t%x",Data[i]);
+	printf("\n");
+
+
+}
+
+

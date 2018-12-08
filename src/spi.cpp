@@ -82,7 +82,8 @@ APP_CHECK_STATUS(status);
 /*Read 2 bytes*/
 sizeToTransfer=2;
 sizeTransfered=0;
-status = SPI_Read(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
+status = 
+SPI_Read(ftHandle, buffer, sizeToTransfer, &sizeTransfered,
 	SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES |
 	SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE);
 APP_CHECK_STATUS(status);
