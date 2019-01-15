@@ -50,6 +50,8 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DigiCDataUtil.cpp" />
+    <ClCompile Include="src\DigiCDriver.cpp" />
     <ClCompile Include="src\FTDUtil.cpp" />
     <ClCompile Include="src\main.cpp">
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp14</LanguageStandard>
@@ -57,6 +59,7 @@
     <ClCompile Include="src\spi.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\DigiCDriver.h" />
     <ClInclude Include="inc\FTDUtil.h" />
     <ClInclude Include="inc\spi.h" />
   </ItemGroup>

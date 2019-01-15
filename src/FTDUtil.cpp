@@ -12,7 +12,7 @@
 FTDUtil::FTDUtil()
 {
 	printf("FTDUtil:Constructor:\nhandle=0x%x\n", this->mHandle);
-	this->mSPIChannelConf.ClockRate = 15000000;
+	this->mSPIChannelConf.ClockRate = 1500000;
 	this->mSPIChannelConf.LatencyTimer =1;
 	this->mSPIChannelConf.configOptions =
 		SPI_CONFIG_OPTION_MODE2 | SPI_CONFIG_OPTION_CS_DBUS3;

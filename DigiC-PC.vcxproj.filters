@@ -24,12 +24,21 @@
     <ClCompile Include="src\spi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\DigiCDataUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DigiCDriver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\FTDUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\spi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DigiCDriver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
