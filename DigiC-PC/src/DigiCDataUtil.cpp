@@ -5,18 +5,27 @@
 
 
 typDigiCPack
-DigiCDataUtil::PacketData(int8_t(&data)[15]) {
+DigiCDataUtil::PacketData(uint8_t(&data)[14]) {
 	typDigiCPack tOut;
 	int symbolIdx = 0;
 	char tSymbolLiteral[10];
 	std::stringstream ss;
 	for (symbolIdx; symbolIdx < 4; ++symbolIdx) {
-		int32_t tSymbol = (symbolIdx == 0 ? 0xff : data[symbolIdx * 4 - 1]) << 24;
-		tSymbol += ((data[symbolIdx * 4 ]) <<16)&(0x00FF0000);
-		tSymbol += ((data[symbolIdx * 4+1 ]) <<8)&(0x0000FF00);
-		tSymbol += ((data[symbolIdx * 4 + 2])&(0x000000FF));
-		sprintf(tSymbolLiteral, "%08x", tSymbol);
+		int32_t  tSymbol;
+		if (symbolIdx != 3) {
+			tSymbol =((symbolIdx==0?data[2]:data[symbolIdx*4-1]) <<24)&(0xFF000000);
+			tSymbol += ((data[symbolIdx*4 ]) <<16)&(0x00FF0000);
+			tSymbol += ((data[symbolIdx*4+1]) <<8)&(0x0000FF00);
+			tSymbol += ((data[symbolIdx*4+2])&(0x000000FF));
+		}
+		else {
+			tSymbol =((0x00) <<24)&(0xFF000000);
+			tSymbol += ((data[symbolIdx*4-1]) <<16)&(0x00FF0000);
+			tSymbol += ((data[symbolIdx*4]) <<8)&(0x0000FF00);
+			tSymbol += ((data[symbolIdx*4+1])&(0x000000FF));
+		}
 
+		sprintf(tSymbolLiteral, "%08x", tSymbol);
 
 		//reverse
 		for (int i = 0; i < 4; i++) 
