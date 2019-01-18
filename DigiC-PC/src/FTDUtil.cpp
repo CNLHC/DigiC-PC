@@ -12,7 +12,7 @@
 FTDUtil::FTDUtil()
 {
 	printf("FTDUtil:Constructor:\nhandle=0x%x\n", this->mHandle);
-	this->mSPIChannelConf.ClockRate = 1500000;
+	this->mSPIChannelConf.ClockRate = 5000000;
 	this->mSPIChannelConf.LatencyTimer =1;
 	this->mSPIChannelConf.configOptions =
 		SPI_CONFIG_OPTION_MODE2 | SPI_CONFIG_OPTION_CS_DBUS3;
@@ -93,21 +93,36 @@ void FTDUtil::SPIWriteByte(uint8 slaveAddress, uint8 address, uint32 data) {
 	APP_CHECK_STATUS(status);
 	printf("FTDUtil:SPIWriteByte:��������%x\n",data);
 }
-void FTDUtil::SPIWriteByteArray(uint8 * Data,int sizeToTransfer) {
+void FTDUtil::SPIWriteByteArray(uint8 * Data,long long int sizeToTransfer) {
 	uint32 sizeTransfered = 0;
 	FT_STATUS status;
-	status = SPI_Write(this->mHandle,Data,sizeToTransfer, &sizeTransfered,
+	unsigned long long int  actualSizeToTransfer =0;
+	uint8 * SendingBuffer = new uint8[2 * sizeToTransfer];
+	for (int i = 0; i < sizeToTransfer; i++) {
+		switch (Data[i]) {
+			case 0x4a:{
+				SendingBuffer[actualSizeToTransfer++] = 0x4d;
+				SendingBuffer[actualSizeToTransfer++] = 0x4a^0x20;
+				break;
+			}
+			case 0x4d: {
+				SendingBuffer[actualSizeToTransfer++] = 0x4d;
+				SendingBuffer[actualSizeToTransfer++] = 0x4d^0x20;
+				break;
+			}
+			default: {
+				SendingBuffer[actualSizeToTransfer++] = Data[i];
+				break;
+			}
+		}
+	}
+	status = SPI_Write(this->mHandle,SendingBuffer,actualSizeToTransfer, &sizeTransfered,
 		SPI_TRANSFER_OPTIONS_SIZE_IN_BYTES|
 		SPI_TRANSFER_OPTIONS_CHIPSELECT_DISABLE
 	);
 	APP_CHECK_STATUS(status);
 	APP_CHECK_STATUS(status);
-	printf("FTDUtil:SPIWriteByte:����:");
-	for (int i=0;i<sizeToTransfer;i++)
-		printf("\t%x",Data[i]);
-	printf("\n");
-
-
+	delete [2 * sizeToTransfer]SendingBuffer;
 }
 
 
