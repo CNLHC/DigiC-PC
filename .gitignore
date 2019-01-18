@@ -338,3 +338,6 @@ ASALocalRun/
 *.jpg
 *.bmp
 StreamingTest
+*.dump
+*.Digic
+*.wav
