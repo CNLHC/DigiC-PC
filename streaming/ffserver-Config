@@ -7,7 +7,6 @@ MaxClients 1000
 MaxBandwidth 100000
 CustomLog -
 
-#############################################################
 
 <Feed video.ffm>
   File /tmp/video.ffm                    # this creates a temp video.ffm file where streams are read/write
@@ -17,17 +16,6 @@ CustomLog -
   ACL allow 192.168.0.0 192.168.255.255
 </Feed>
 
-<Stream test.mpeg4>
-  Feed video.ffm
-  Format rtp
-  AudioCodec vorbis
-  AudioBitRate 64                             # Audio bitrate
-  VideoCodec mpeg4
-  VideoSize 720x486                           # Video resolution
-  VideoFrameRate 30                           # Video FPS
-  StartSendOnKey
-  VideoBitRate 400                            # Video bitrate
-</Stream>
 
 <Stream live.webm>
     Feed video.ffm
@@ -42,34 +30,6 @@ CustomLog -
     StartSendOnKey
 </Stream>
 
- 
-
-###########################################################################
-
-# Audio only
-# run ffmpeg -i audio.mp3 http://localhost:8090/audio.ffm
-# run http://localhost:8090/audio in vlc or browser
-
-<Feed audio.ffm>
-  File /tmp/audio.ffm
-  FileMaxSize 1G
-  ACL allow localhost
-  ACL allow 127.0.0.1
-  ACL allow 192.168.0.0 192.168.255.255
-</Feed>
-
-<Stream audio>
-  Feed audio.ffm
-  Format mp2                                     #audio format
-  AudioCodec libmp3lame                          #audio codec
-  AudioBitRate 64                                #audio bitrate
-  AudioChannels 1                                #audio channel, 1 for mono and 2 for stereo
-  AudioSampleRate 44100
-  NoVideo                                        #discard video
-</Stream>
-
-####################################################################
-#view status of ffserver
 <Stream stat.html>
   Format status
   ACL allow localhost
@@ -77,8 +37,6 @@ CustomLog -
 </Stream>
 
  
-
-# Redirect index.html to the appropriate site
 
 <Redirect index.html>
   URL http://www.ffmpeg.org/

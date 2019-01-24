@@ -2,6 +2,7 @@
 #include <list>
 #include"FTDUtil.h"
 
+#define FrameLength 13
 typedef std::list<int8_t> typDigiCPack;
 typedef std::list<std::list<int8_t>> typDigiCPackList;
 class DigiCDataUtil {
@@ -16,7 +17,7 @@ class DigiCDataUtil {
 		Generate a Digic-Packtet
 		\param data Bytes to transform. must be an length-15 int8_t array
 		*/
-		typDigiCPack PacketData(uint8_t(&data)[12]);
+		typDigiCPack PacketData(uint8_t(&data)[FrameLength]);
 
 		void GenerateDigiCFile(std::string infp,std::string outfp);
 };

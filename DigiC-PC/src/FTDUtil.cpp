@@ -12,23 +12,23 @@
 FTDUtil::FTDUtil()
 {
 	printf("FTDUtil:Constructor:\nhandle=0x%x\n", this->mHandle);
-	this->mSPIChannelConf.ClockRate = 6000000;
+	this->mSPIChannelConf.ClockRate = 5000000;
 	this->mSPIChannelConf.LatencyTimer =1;
 	this->mSPIChannelConf.configOptions =
 		SPI_CONFIG_OPTION_MODE2 | SPI_CONFIG_OPTION_CS_DBUS3;
 	this->mSPIChannelConf.Pin = 0x00000000;
 	FT_STATUS status = SPI_OpenChannel(0, &mHandle);
 	if (!status == FT_OK) {
-		printf("����:FTDUtil:Constructor:�޷���SPI�˿�\n");
-		throw std::runtime_error("����:FTDUtil:Constructor:�޷���SPI�˿�\n");
+		printf("");
+		throw std::runtime_error("");
 	}
-	printf("FTDUtil:Constructor:SPI�豸�Ѿ���\n");
+	printf("");
 	status = SPI_InitChannel(mHandle,&mSPIChannelConf);
 	if (!status == FT_OK) {
-		printf("����:FTDUtil:Constructor:�޷���ʼ��SPI�˿�");
-		throw std::runtime_error("����:FTDUtil:Constructor:�޷���ʼ��SPI�˿�");
+		printf("");
+		throw std::runtime_error("");
 	}
-	printf("FTDUtil:Constructor:SPI�豸�ѳ�ʼ��\n");
+	printf("");
 }
 FTDUtil::~FTDUtil()
 {
@@ -40,9 +40,9 @@ FT_DEVICE_LIST_INFO_NODE *devInfo;
 DWORD numDevs;
 ftStatus = FT_CreateDeviceInfoList(&numDevs);
 if (ftStatus == FT_OK) 
-	printf("�����豸��Ŀ: %d\n", numDevs);
+	printf("", numDevs);
 else
-	printf("�޷������豸�б�" );
+	printf("" );
 if (numDevs > 0) {
 	auto devInfo = new FT_DEVICE_LIST_INFO_NODE[numDevs];
 	ftStatus = FT_GetDeviceInfoList(devInfo, &numDevs);

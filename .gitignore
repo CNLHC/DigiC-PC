@@ -341,3 +341,6 @@ StreamingTest
 *.dump
 *.Digic
 *.wav
+*.avi
+*.csv
+*.h264

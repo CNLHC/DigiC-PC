@@ -4,6 +4,7 @@
 #include <cassert>
 #include <fstream>
 #include<sstream>
+#include <iostream>
 
 DigiCDriver::DigiCDriver() {
 	this->mFTDHandle.lsSPIChannel();
@@ -76,9 +77,9 @@ DigiCDriver::sendFile(std::string filePath) {
 
 
 	while(loopingState){
-		uint8_t buf[12] = { 0 };
-		if (fileSize - fs.tellg() >12) 
-			fs.read((char*)buf,12);
+		uint8_t buf[FrameLength] = { 0 };
+		if (fileSize - fs.tellg() >FrameLength) 
+			fs.read((char*)buf,FrameLength);
 		else {
 			fs.read((char*)buf,fileSize-fs.tellg());
 			loopingState = false;
@@ -99,7 +100,7 @@ DigiCDriver::sendFile(std::string filePath) {
 }
 
 void DigiCDriver::sendDigiCFile(std::string DigiCFilePath) {
-	int64 chunkSize = 500 * 16;
+	int64 chunkSize = 2500 * 16;
 	std::fstream fs;
 	fs.open(DigiCFilePath, std::fstream::binary | std::fstream::in);
 	fs.seekg(0,std::ios::end);
@@ -109,9 +110,10 @@ void DigiCDriver::sendDigiCFile(std::string DigiCFilePath) {
 	if (fileSize % 16 != 0)
 		printf("DigiC file may be corrupt\n");
 	auto ChunkBuffer = new uint8[chunkSize];
+
 	while (loopingState) {
 		int64 res = fileSize - fs.tellg();
-		if (res < chunkSize) {
+		if (res <= chunkSize) {
 			auto lastSendBuffer = new uint8[res];
 			fs.read((char *)lastSendBuffer, res);
 			this->mFTDHandle.SPIWriteByteArray(lastSendBuffer, res);
@@ -122,6 +124,11 @@ void DigiCDriver::sendDigiCFile(std::string DigiCFilePath) {
 			fs.read((char *)ChunkBuffer,chunkSize);
 			this->mFTDHandle.SPIWriteByteArray(ChunkBuffer,chunkSize);
 		}
-		printf("%.3f%%\n", (double)((double)fs.tellg() * 100 / (double)fileSize));
+
+		int X=1;
+		std::cout << "\r" <<(double)((double)fs.tellg() * 100 / (double)fileSize) << "% completed: ";
+		X = (int)((double)fs.tellg() * 100 / (double)fileSize);
+		std::cout << std::string(X, '|');
+		std::cout.flush();
 	}
 }

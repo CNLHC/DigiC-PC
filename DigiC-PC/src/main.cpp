@@ -20,22 +20,8 @@ uint8_t specialData1[15] = {
 	0x03,0x66,0x58,0x4c,
 	0x8d,0xc2,0x9a };
 
-//uint8_t specialData2[12] = { 0x71 ,0x75,0x69,0x65,0x74,0x20,0x6d,0x6f,0x6f,0x6e,0x6c,0x69};
-//uint8_t specialData3[15] = {0x6f,0x17,0x6c,0x5a,0xe6,0x00,0x18,0xa6,0xd8,0x24,0x0e,0x58,0xfe,0xd8,0x8a};
-//uint8_t specialData4[15] = {0x6e,0x1d,0xc4,0xb7,0x10,0x18,0x37,0x18,0xaa,0xf3,0x07,0xea,0x6f,0xcd,0xdc};
-//uint8_t specialData5[15] = {0xc4,0x42,0x9c,0xd2,0xde,0x79,0xa7,0xaa,0x58,0x62,0x65,0x1c,0xe8,0xb3};
-//uint8_t specialData6[14] = {0x59,0xe6,0xbe,0xca,0x73,0x1b,0xd2,0xe8,0xd4,0x17,0x49,0x54,0xa6};
-//uint8_t specialData6[14] = {0x15,0x15,0x9c,0x15,0x15,0x15,0x14,0x15,0x15,0x15,0x15,0x15,0x15,0x15};
-//uint8_t specialData7[14] = { 0xe5,0xfc ,0x68,0x1f ,0x33,0x16 ,0x3c,0x92, 0x7c,0xeb ,0xc0,0xc7 ,0xce,0x99 };
-uint8_t specialData7_t[12] = { 0xe5,0xfc ,0x68,0x1f ,0x33,0x16 ,0x3c,0x92, 0x7c,0xeb ,0xc0,0x99 };
-
-int8_t buffer[32] = { 
-	0xFF,0x12,0x34,0x56,0xFF,0x98,0x76,0x54,
-	0xFF,0xab,0xcd,0xef,0xFF,0x80,0x58,0x21,
-	0x62,0x01,0x02,0x19,0x98,0x10,0x26,0x00,
-	0x10,0x24,0x63,0x76,0x56,0x97,0x21,0x96
-};
-int8_t bufferb[10240];
+uint8_t specialData0[16] =
+{ 0x15,0x15,0x15,0x15,0x15,0x15,0x15,0x00,0x00,0x15,0x15,0x15,0x15,0x15,0x15,0x15 };
 
 
 
@@ -44,31 +30,45 @@ int main() {
 	// And it MUST be placed here, at first line in main function. Otherwise, the spi channel can't open.
 	//Why? May be the FTDI's black magic.
 
-	//std::string fp("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\kio.bmp");
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> uni(0,255);
-
 	DigiCDataUtil u1;
 	DigiCDriver d1;
-	//d1.sendDigiCFile(std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.mp3.Digic"));
-	//d1.sendDigiCFile(std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\cut.mp4.Digic"));
+	//std::string fp("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\kio.bmp");
+	//std::string fp("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\cut.avi");
+	//std::string fp("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\casback.bmp");
 	//d1.sendFile(fp);
+
+	//d1.sendDigiCFile(std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.wav.Digic"));
+	//d1.sendDigiCFile(std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\cut.avi.Digic"));
+	//d1.sendDigiCFile(std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\Sarabande.avi.Digic"));
+	//d1.sendDigiCFile(std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\beihang.bmp.Digic"));
+
 	//u1.GenerateDigiCFile(
-	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.mp3"),
-	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.mp3.Digic"));
-	u1.GenerateDigiCFile(
-		std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.wav"),
-		std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.wav.Digic"));
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.wav"),
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\1064.wav.Digic"));
+
 	//u1.GenerateDigiCFile(
-	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\cut.mp4"),
-	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\cut.mp4.Digic"));
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\Sarabande.avi"),
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\Sarabande.avi.Digic"));
+
+	//u1.GenerateDigiCFile(
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\Sarabande.h264"),
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\Sarabande.h264.Digic"));
+	//u1.GenerateDigiCFile(
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\cut.webm"),
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\cut.webm.Digic"));
+	//u1.GenerateDigiCFile(
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\beihang.bmp"),
+	//	std::string("C:\\Users\\cn\\Desktop\\Project\\DigiC-PC\\beihang.bmp.Digic"));
 
 
 	//system("pause");
-	//while (1) {
-	//	typDigiCPack a;
-	//	a=u1.PacketData(specialData7_t);
-	//	d1.sendPacket(a);
-	//}
+	while (1) {
+		d1.sendPacket(specialData0);
+		//typDigiCPack a; 
+		//a = u1.PacketData(UspecialData0);
+		//d1.sendPacket(a);
+	}
 }

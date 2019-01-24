@@ -6,7 +6,7 @@
 
 
 typDigiCPack
-DigiCDataUtil::PacketData(uint8_t(&data)[12]) {
+DigiCDataUtil::PacketData(uint8_t(&data)[FrameLength]) {
 	typDigiCPack tOut;
 	int symbolIdx = 0;
 	char tSymbolLiteral[10];
@@ -17,19 +17,25 @@ DigiCDataUtil::PacketData(uint8_t(&data)[12]) {
 			tSymbol =((data[2]) <<24)&(0xFF000000);
 			tSymbol += ((data[0]) <<16)&(0x00FF0000);
 			tSymbol += ((data[1]) <<8)&(0x0000FF00);
-			tSymbol += ((0x9c)&(0x000000FF));
+			tSymbol += ((0x36)&(0x000000FF));
+		}
+		else if(symbolIdx==1){
+			tSymbol =  ((0x00) <<24)&(0xFF000000);
+			tSymbol += ((data[3]) <<16)&(0x00FF0000);
+			tSymbol += ((data[4]) <<8)&(0x0000FF00);
+			tSymbol += ((data[5])&(0x000000FF));
+		}
+		else if(symbolIdx==2){
+			tSymbol =  ((data[6]) <<24)&(0xFF000000);
+			tSymbol += ((data[7]) <<16)&(0x00FF0000);
+			tSymbol += ((data[8]) <<8)&(0x0000FF00);
+			tSymbol += ((0x00)&(0x000000FF));
 		}
 		else if (symbolIdx==3){
-			tSymbol =((0x00) <<24)&(0xFF000000);
-			tSymbol += ((0x00) <<16)&(0x00FF0000);
-			tSymbol += ((0x00) <<8)&(0x0000FF00);
-			tSymbol += ((data[11])&(0x000000FF));
-		}
-		else {
-			tSymbol =  ((data[symbolIdx*4-1]) <<24)&(0xFF000000);
-			tSymbol += ((data[symbolIdx*4 ]) <<16)&(0x00FF0000);
-			tSymbol += ((data[symbolIdx*4+1]) <<8)&(0x0000FF00);
-			tSymbol += ((data[symbolIdx*4+2])&(0x000000FF));
+			tSymbol =  ((data[9]) <<24)&(0xFF000000);
+			tSymbol += ((data[10]) <<16)&(0x00FF0000);
+			tSymbol += ((data[11]) <<8)&(0x0000FF00);
+			tSymbol += ((data[12])&(0x000000FF));
 		}
 
 		sprintf(tSymbolLiteral, "%08x", tSymbol);
@@ -88,9 +94,9 @@ DigiCDataUtil::GenerateDigiCFile(std::string infp, std::string outfp) {
 	bool loopingState=true;
 
 	while(loopingState){
-		uint8_t buf[12] = { 0 };
-		if (inputFileLength- infs.tellg() >12) 
-			infs.read((char*)buf,12);
+		uint8_t buf[FrameLength] = { 0 };
+		if (inputFileLength- infs.tellg() >FrameLength) 
+			infs.read((char*)buf,FrameLength);
 		else {
 			infs.read((char*)buf,inputFileLength-infs.tellg());
 			loopingState = false;
